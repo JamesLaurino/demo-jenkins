@@ -13,4 +13,10 @@ public class GreetingController
     {
         return "Hello there v7 !";
     }
+
+    @GetMapping("/jdk")
+    public String getJdk()
+    {
+        return "version 17";
+    }
 }
