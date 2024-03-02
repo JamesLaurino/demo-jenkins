@@ -17,6 +17,6 @@ public class GreetingController
     @GetMapping("/jdk")
     public String getJdk()
     {
-        return "version 17";
+        return "version 18";
     }
 }
