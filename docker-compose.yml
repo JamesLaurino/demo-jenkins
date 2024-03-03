@@ -12,17 +12,19 @@ services:
     volumes:
       - C:/Dev/Docker/volumes/db:/var/lib/postgres
   application:
-    depends_on: postgresdb
-    build: Dockerfile
+    depends_on:
+    - postgresdb
+    build: .
     ports:
       - 8080:8080
     environment:
       SPRING_APPLICATION_JSON: '{
-        "spring.datasource.url": "URL"
-        "spring.datasource.url" : "jdbc:postgresql://postgresdb:5432/testDB"
-        "spring.datasource.username" : "james"
-        "spring.datasource.password" : "1234"
-        "spring.jpa.properties.hibernate.format_sql": "true"
+        "server.port": "8080",
+        "spring.datasource.url": "URL",
+        "spring.datasource.url" : "jdbc:postgresql://postgresdb:5432/testDB",
+        "spring.datasource.username" : "james",
+        "spring.datasource.password" : "1234",
+        "spring.jpa.properties.hibernate.format_sql": "true",
         "spring.jpa.hibernate.ddl-auto":"create-drop"
       }'
     stdin_open: true
