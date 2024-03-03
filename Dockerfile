@@ -1,11 +1,9 @@
-# Utilisez une image Java officielle en tant que base
-FROM openjdk:17
+FROM maven:3.8.5-openjdk:17
 
-# Copiez le fichier JAR dans le conteneur
-COPY ./target /app
-
-# Définissez le répertoire de travail
 WORKDIR /app
 
-# Commande pour exécuter l'application lorsque le conteneur démarre
-CMD ["java", "-jar", "demo.jar"]
+COPY . .
+
+RUN mvn clean install
+
+CMD mvn spring-boot:run

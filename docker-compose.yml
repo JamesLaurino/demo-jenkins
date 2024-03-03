@@ -1,0 +1,32 @@
+version: '3'
+services:
+  postgresdb:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: james
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: testDB
+    ports:
+      - 5432:5432
+    volumes:
+      - C:/Dev/Docker/volumes/db:/var/lib/postgres
+  application:
+    depends_on: postgresdb
+    build: Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.datasource.url": "URL"
+        "spring.datasource.url" : "jdbc:postgresql://postgresdb:5432/testDB"
+        "spring.datasource.username" : "james"
+        "spring.datasource.password" : "1234"
+        "spring.jpa.properties.hibernate.format_sql": "true"
+        "spring.jpa.hibernate.ddl-auto":"create-drop"
+      }'
+    stdin_open: true
+    tty: true
+
+volumes:
+  db:
