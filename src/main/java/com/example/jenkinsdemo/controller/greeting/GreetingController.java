@@ -11,7 +11,7 @@ public class GreetingController
     @GetMapping
     public String greeting()
     {
-        return "Hello there v7 !";
+        return "Hello world v1 !";
     }
 
     @GetMapping("/jdk")

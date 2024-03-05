@@ -2,7 +2,9 @@ version: '3'
 services:
   postgresdb:
     image: postgres
-    restart: unless-stopped
+    deploy:
+      mode: replicated
+      replicas: 3
     environment:
       POSTGRES_USER: james
       POSTGRES_PASSWORD: 1234
@@ -14,13 +16,16 @@ services:
   application:
     depends_on:
     - postgresdb
+    deploy:
+      mode: replicated
+      replicas: 3
+    image: "demo-jenkins:latest"
     build: .
     ports:
       - 8080:8080
     environment:
       SPRING_APPLICATION_JSON: '{
         "server.port": "8080",
-        "spring.datasource.url": "URL",
         "spring.datasource.url" : "jdbc:postgresql://postgresdb:5432/testDB",
         "spring.datasource.username" : "james",
         "spring.datasource.password" : "1234",
